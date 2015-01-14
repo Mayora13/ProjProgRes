@@ -33,6 +33,17 @@ public class SessionServer {
 			case Protocol.CLEAR :
 				break;
 			case Protocol.CONNECT :
+				String pwd = reader.getPwd();
+				String name = reader.getId();
+				User tryConnect = this.document.connect(name, pwd);
+				if(tryConnect != null)
+				{
+					writer.writeOK(tryConnect.getId());
+				}
+				else
+				{
+					writer.writeKO();
+				}
 				break;
 			case Protocol.CONSUME :
 				break;
