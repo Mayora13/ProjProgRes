@@ -21,26 +21,27 @@ public class Reader extends BasicAbstractReader {
 		type = readInt ();
 		switch (type) {
 		case 0 :
+			System.out.println("msg error");
 			break;
-		case 10 :
+		case Protocol.STAT :
 			readStat();
 			break;
-		case 20 :
+		case Protocol.PROD :
 			readProd();
 			break;
-		case 30 :
+		case Protocol.SHOP :
 			readShop();
 			break;
-		case 40 :
+		case Protocol.ADD :
 			readAdd();
 			break;
-		case 50 : 
+		case Protocol.SUB : 
 			readSub();
 			break;
-		case 60 :
+		case Protocol.CLEAR :
 			readClear();
 			break;
-		case 70 :
+		case Protocol.CONSUME :
 			readConsume();
 			break;
 		}
@@ -68,7 +69,7 @@ public class Reader extends BasicAbstractReader {
 
 	private void readShop() {
 		// TODO Auto-generated method stub
-		
+		readTab(Protocol.SHOP);
 	}
 
 	private void readProd() {
@@ -91,9 +92,14 @@ public class Reader extends BasicAbstractReader {
 		
 	}
 
-	private void readTab() {
+	private void readTab(int discr) {
 		// TODO Auto-generated method stub
-		
+		switch (discr) {
+			case Protocol.SHOP : 
+				break;
+			case Protocol.PROD :
+				break;
+		}
 	}
 	
 }
