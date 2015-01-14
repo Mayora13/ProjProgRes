@@ -14,6 +14,7 @@ public class SessionClient {
 	private Socket connection;
     private String name;
     private long id;
+    private Player p;
 	
 	public SessionClient (Socket connection) {
 		this.connection = connection;
@@ -32,7 +33,7 @@ public class SessionClient {
 
 	public boolean disconnect () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.disconnect()==true) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -41,7 +42,7 @@ public class SessionClient {
 
 	public boolean addCash (int amount) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (amount!=0) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -50,7 +51,7 @@ public class SessionClient {
 
 	public boolean clearProducts () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.clearProducts()==true) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -59,7 +60,7 @@ public class SessionClient {
 
 	public boolean consumeProducts () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.consumeProducts()==true) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -68,8 +69,8 @@ public class SessionClient {
 
 	public Player getStatistics () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
+			if (p.getName()==this.name) throw new IOException ("not yet implemented");
+			return new Player(name,p.getImage(),p.getCash());
 		} catch (IOException e) {
 			return null;
 		}
