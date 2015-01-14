@@ -60,7 +60,7 @@ public class SessionServer {
 				long id = reader.getId();
 				if(document.disconnect(name, id))
 				{
-					writer.writeDisconnected();
+					writer.writeOK(Protocol.DISCONNECT);
 				}
 				else
 				{

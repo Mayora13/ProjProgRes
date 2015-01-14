@@ -14,6 +14,7 @@ public interface Protocol {
 	static final public int CONNECT = 80;
 	static final public int DISCONNECT = 90;
 	
+	public static final int KO = -2;
 	public static final int OK = 1;
 
 	public static final Object EXIT_TEXT = "exit";
