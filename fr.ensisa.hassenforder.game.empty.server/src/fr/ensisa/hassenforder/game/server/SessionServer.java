@@ -26,7 +26,24 @@ public class SessionServer {
 			Reader reader = new Reader (connection.getInputStream());
 			reader.receive ();
 			switch (reader.getType ()) {
-			case 0 : return false; // socket closed
+			case 0 : 
+				return false; // socket closed
+			case Protocol.ADD :
+				break;
+			case Protocol.CLEAR :
+				break;
+			case Protocol.CONNECT :
+				break;
+			case Protocol.CONSUME :
+				break;
+			case Protocol.PROD : 
+				break;
+			case Protocol.SHOP : 
+				break;
+			case Protocol.STAT : 
+				break;
+			case Protocol.SUB :
+				break;
 			case -1 :
 				break;
 			default: return false; // connection jammed
