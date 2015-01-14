@@ -82,17 +82,12 @@ public class Reader extends BasicAbstractReader {
 		readTab(Protocol.SHOP);
 	}
 
-	private void readProd() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void readStat() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void readProduct() {
+	private void readProd() {
 		// TODO Auto-generated method stub
 		readTab(Protocol.PROD);
 	}
