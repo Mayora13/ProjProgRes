@@ -34,15 +34,15 @@ public class SessionServer {
 				break;
 			case Protocol.CONNECT :
 				String pwd = reader.getPwd();
-				String name = reader.getId();
+				String name = reader.getName();
 				User tryConnect = this.document.connect(name, pwd);
 				if(tryConnect != null)
 				{
-					writer.writeOK(tryConnect.getId());
+					writer.writeConnected(tryConnect.getId());
 				}
 				else
 				{
-					writer.writeKO();
+					writer.writeKO(Protocol.CONNECT);
 				}
 				break;
 			case Protocol.CONSUME :
@@ -54,6 +54,18 @@ public class SessionServer {
 			case Protocol.STAT : 
 				break;
 			case Protocol.SUB :
+				break;
+			case Protocol.DISCONNECT :
+				name = reader.getName();
+				long id = reader.getId();
+				if(document.disconnect(name, id))
+				{
+					writer.writeDisconnected();
+				}
+				else
+				{
+					writer.writeKO(Protocol.DISCONNECT);
+				}
 				break;
 			case -1 :
 				break;

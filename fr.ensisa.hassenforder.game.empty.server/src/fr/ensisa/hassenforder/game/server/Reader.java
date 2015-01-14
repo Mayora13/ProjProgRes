@@ -8,8 +8,9 @@ import fr.ensisa.hassenforder.network.Protocol;
 
 public class Reader extends BasicAbstractReader {
 
-	private String Id;
+	private String name;
 	private String pwd;
+	private long id;
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -50,12 +51,21 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.CONNECT : 
 			readConnect();
 			break;
+		case Protocol.DISCONNECT :
+			readDisconnect();
+			break;
 		}
+	}
+
+	private void readDisconnect() {
+		// TODO Auto-generated method stub
+		this.name = readString();
+		this.id = readLong();
 	}
 
 	private void readConnect() {
 		// TODO Auto-generated method stub
-		this.Id = readString();
+		this.name = readString();
 		this.pwd = readString();		
 	}
 
@@ -114,13 +124,18 @@ public class Reader extends BasicAbstractReader {
 		}
 	}
 	
-	public String getId()
+	public String getName()
 	{
-		return this.Id;
+		return this.name;
 	}
 	
 	public String getPwd()
 	{
 		return this.pwd;
+	}
+	
+	public long getId()
+	{
+		return this.id;
 	}
 }

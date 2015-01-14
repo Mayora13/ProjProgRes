@@ -12,15 +12,28 @@ public class Writer extends BasicAbstractWriter {
 		super (outputStream);
 	}
 
-	public void writeOK(long id) {
+	public void writeConnected(long id) {
 		// TODO Auto-generated method stub
 		writeLong(id);
+		writeOK();
 	}
 
-	public void writeKO() {
+	private void writeOK() {
 		// TODO Auto-generated method stub
-		writeString("Service failed");
+		writeInt(Protocol.OK);
 	}
+
+	public void writeKO(int err) {
+		// TODO Auto-generated method stub
+		writeInt(err);
+	}
+
+	public void writeDisconnected() {
+		// TODO Auto-generated method stub
+		writeString("Disconnected");
+		writeOK();
+	}
+
 	
 
 }

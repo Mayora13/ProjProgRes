@@ -12,7 +12,12 @@ public interface Protocol {
 	static final public int CLEAR = 60;
 	static final public int CONSUME = 70;
 	static final public int CONNECT = 80;
+	static final public int DISCONNECT = 90;
+	
+	public static final int OK = 1;
 
 	public static final Object EXIT_TEXT = "exit";
+
+	
 
 }
