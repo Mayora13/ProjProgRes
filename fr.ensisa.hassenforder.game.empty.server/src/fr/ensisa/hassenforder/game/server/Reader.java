@@ -44,7 +44,17 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.CONSUME :
 			readConsume();
 			break;
+		case Protocol.CONNECT : 
+			readConnect();
+			break;
 		}
+	}
+
+	private void readConnect() {
+		// TODO Auto-generated method stub
+		String Id = readString();
+		String pwd = readString();
+		
 	}
 
 	private void readConsume() {
@@ -84,7 +94,7 @@ public class Reader extends BasicAbstractReader {
 
 	private void readProduct() {
 		// TODO Auto-generated method stub
-		
+		readTab(Protocol.PROD);
 	}
 
 	private void readImage() {
@@ -96,8 +106,13 @@ public class Reader extends BasicAbstractReader {
 		// TODO Auto-generated method stub
 		switch (discr) {
 			case Protocol.SHOP : 
+				
 				break;
 			case Protocol.PROD :
+				
+				break;
+			default : 
+				
 				break;
 		}
 	}
