@@ -26,7 +26,47 @@ public class SessionServer {
 			Reader reader = new Reader (connection.getInputStream());
 			reader.receive ();
 			switch (reader.getType ()) {
-			case 0 : return false; // socket closed
+			case 0 : 
+				return false; // socket closed
+			case Protocol.ADD :
+				break;
+			case Protocol.CLEAR :
+				break;
+			case Protocol.CONNECT :
+				String pwd = reader.getPwd();
+				String name = reader.getName();
+				User tryConnect = this.document.connect(name, pwd);
+				if(tryConnect != null)
+				{
+					writer.writeConnected(tryConnect.getId());
+				}
+				else
+				{
+					writer.writeKO(Protocol.CONNECT);
+				}
+				break;
+			case Protocol.CONSUME :
+				break;
+			case Protocol.PROD : 
+				break;
+			case Protocol.SHOP : 
+				break;
+			case Protocol.STAT : 
+				break;
+			case Protocol.SUB :
+				break;
+			case Protocol.DISCONNECT :
+				name = reader.getName();
+				long id = reader.getId();
+				if(document.disconnect(name, id))
+				{
+					writer.writeOK(Protocol.DISCONNECT);
+				}
+				else
+				{
+					writer.writeKO(Protocol.DISCONNECT);
+				}
+				break;
 			case -1 :
 				break;
 			default: return false; // connection jammed

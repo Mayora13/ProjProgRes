@@ -12,4 +12,23 @@ public class Writer extends BasicAbstractWriter {
 		super (outputStream);
 	}
 
+	public void writeConnected(long id) {
+		// TODO Auto-generated method stub
+		writeOK(Protocol.CONNECT);
+		writeLong(id);
+	}
+
+	public void writeOK(int service) {
+		// TODO Auto-generated method stub
+		writeInt(service);
+		writeInt(Protocol.OK);
+	}
+
+	public void writeKO(int err) {
+		// TODO Auto-generated method stub
+		writeInt(err);
+		writeInt(Protocol.KO);
+	}
+
+
 }
