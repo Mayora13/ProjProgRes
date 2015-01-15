@@ -58,9 +58,17 @@ public class SessionServer {
 			case Protocol.DISCONNECT :
 				name = reader.getName();
 				long id = reader.getId();
-				if(document.disconnect(name, id))
+				long idDisc = reader.getIdDisc();
+				if(id == idDisc)
 				{
-					writer.writeOK();
+					if(document.disconnect(name, idDisc))
+					{
+						writer.writeOK();
+					}
+					else
+					{
+						writer.writeKO();
+					}
 				}
 				else
 				{
