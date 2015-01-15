@@ -42,7 +42,7 @@ public class SessionServer {
 				}
 				else
 				{
-					writer.writeKO(Protocol.CONNECT);
+					writer.writeKO();
 				}
 				break;
 			case Protocol.CONSUME :
@@ -60,11 +60,11 @@ public class SessionServer {
 				long id = reader.getId();
 				if(document.disconnect(name, id))
 				{
-					writer.writeOK(Protocol.DISCONNECT);
+					writer.writeOK();
 				}
 				else
 				{
-					writer.writeKO(Protocol.DISCONNECT);
+					writer.writeKO();
 				}
 				break;
 			case -1 :
