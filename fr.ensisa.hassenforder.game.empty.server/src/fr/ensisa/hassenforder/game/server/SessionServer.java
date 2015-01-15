@@ -42,7 +42,7 @@ public class SessionServer {
 				}
 				else
 				{
-					writer.writeKO();
+					writer.writeError("Connect failed");
 				}
 				break;
 			case Protocol.CONSUME :
@@ -67,15 +67,16 @@ public class SessionServer {
 					}
 					else
 					{
-						writer.writeKO();
+						writer.writeError("Bad User ye hacker !");
 					}
 				}
 				else
 				{
-					writer.writeKO();
+					writer.writeError("Disconnect failed");
 				}
 				break;
 			case -1 :
+				writer.writeError("Bad message");
 				break;
 			default: return false; // connection jammed
 			}

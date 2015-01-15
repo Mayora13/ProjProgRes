@@ -28,5 +28,11 @@ public class Writer extends BasicAbstractWriter {
 		writeInt(Protocol.KO);
 	}
 
+	public void writeError(String msg) {
+		// TODO Auto-generated method stub
+		writeKO();
+		writeString(msg);
+	}
+
 
 }
