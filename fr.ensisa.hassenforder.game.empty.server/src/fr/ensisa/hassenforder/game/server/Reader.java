@@ -6,6 +6,12 @@ import java.io.InputStream;
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.Protocol;
 
+/**
+ * Reads the InputStream from network
+ * @author joris
+ * extends @class BasicABstractReader for methods for reading basic types
+ * implements methods to read more complex messages such as Arrays or specific messages for the protocol
+ */
 public class Reader extends BasicAbstractReader {
 
 	private String name;
@@ -58,60 +64,59 @@ public class Reader extends BasicAbstractReader {
 		}
 	}
 
-	private void readDisconnect() {
-		// TODO Auto-generated method stub
+	private void readDisconnect() 
+	{
 		this.name = readString();
 		this.idDisc = readLong();
 	}
 
-	private void readConnect() {
-		// TODO Auto-generated method stub
+	private void readConnect() 
+	{
 		this.name = readString();
 		this.pwd = readString();		
 	}
 
-	private void readConsume() {
-		// TODO Auto-generated method stub
+	private void readConsume() 
+	{
 		
 	}
 
-	private void readClear() {
-		// TODO Auto-generated method stub
+	private void readClear() 
+	{
 		
 	}
 
-	private void readSub() {
-		// TODO Auto-generated method stub
+	private void readSub() 
+	{
 		
 	}
 
-	private void readAdd() {
-		// TODO Auto-generated method stub
+	private void readAdd() 
+	{
 		
 	}
 
-	private void readShop() {
-		// TODO Auto-generated method stub
+	private void readShop() 
+	{
 		readTab(Protocol.SHOP);
 	}
 
-	private void readStat() {
-		// TODO Auto-generated method stub
+	private void readStat() 
+	{
 		
 	}
 
-	private void readProd() {
-		// TODO Auto-generated method stub
+	private void readProd() 
+	{
 		readTab(Protocol.PROD);
 	}
 
-	private void readImage() {
-		// TODO Auto-generated method stub
-		
+	private void readImage() 
+	{
+	
 	}
 
 	private void readTab(int discr) {
-		// TODO Auto-generated method stub
 		switch (discr) {
 			case Protocol.SHOP : 
 				
@@ -140,8 +145,8 @@ public class Reader extends BasicAbstractReader {
 		return this.id;
 	}
 
-	public long getIdDisc() {
-		// TODO Auto-generated method stub
+	public long getIdDisc() 
+	{
 		return this.idDisc;
 	}
 }
