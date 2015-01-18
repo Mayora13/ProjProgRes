@@ -117,15 +117,23 @@ public class Reader extends BasicAbstractReader {
 	}
 
 	private void readTab(int discr) {
+		int size;
 		switch (discr) {
 			case Protocol.SHOP : 
-				
 				break;
 			case Protocol.PROD :
-				
+				size = readInt();
+				for(int i = 0; i < size; i++)
+				{
+					
+				}
 				break;
 			default : 
-				
+				size = readInt();
+				for(int i = 0; i < size; i++)
+				{
+					
+				}
 				break;
 		}
 	}
