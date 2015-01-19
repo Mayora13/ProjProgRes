@@ -39,12 +39,20 @@ public class Reader extends BasicAbstractReader {
 		case 5:
 			readImg();
 			break;
+		case 6:
+			readTab();
+			break;
 		
 	}
 
 	
 	}
 	
+
+	private void readTab() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private String readImg() {
 		try {

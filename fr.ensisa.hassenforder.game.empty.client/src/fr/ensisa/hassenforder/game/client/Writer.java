@@ -69,11 +69,6 @@ public class Writer extends BasicAbstractWriter {
 		
 	}
 	
-	public void writeImage(String name, long id){
-		writeString(name);
-		writeLong(id);
-	}
-	
 	public void writeTab(int discr) {
 		switch (discr) {
 			case Protocol.SHOP : 
