@@ -122,10 +122,6 @@ public class Reader extends BasicAbstractReader {
 		this.idTest = readInt();
 	}
 
-
-
-
-	
 	public String getName()
 	{
 		return this.name;
