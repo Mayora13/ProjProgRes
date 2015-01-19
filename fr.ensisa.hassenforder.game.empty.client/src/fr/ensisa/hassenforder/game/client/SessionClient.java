@@ -3,9 +3,12 @@ package fr.ensisa.hassenforder.game.client;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Collection;
+import java.util.Map;
 
+import fr.ensisa.hassenforder.game.model.Category;
 import fr.ensisa.hassenforder.game.model.Player;
 import fr.ensisa.hassenforder.game.model.Product;
+import fr.ensisa.hassenforder.game.model.Shop;
 import fr.ensisa.hassenforder.network.FileHelper;
 import fr.ensisa.hassenforder.network.Protocol;
 
@@ -13,8 +16,13 @@ public class SessionClient {
 
 	private Socket connection;
     private String name;
+    private String pwd;
     private long id;
     private Player p;
+    private Shop s;
+    private Product pr;
+	private Category AMMO ;
+	private Collection <Product> products;
 	
 	public SessionClient (Socket connection) {
 		this.connection = connection;
@@ -24,7 +32,7 @@ public class SessionClient {
 
 	public boolean connect (String username, String userpassword) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.name==username && this.pwd==userpassword) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -33,7 +41,7 @@ public class SessionClient {
 
 	public boolean disconnect () {
 		try {
-			if (this.disconnect()==true) throw new IOException ("not yet implemented");
+			if (this.id!=0) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -51,7 +59,7 @@ public class SessionClient {
 
 	public boolean clearProducts () {
 		try {
-			if (this.clearProducts()==true) throw new IOException ("not yet implemented");
+			if (this.products.size()!=0) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -60,7 +68,7 @@ public class SessionClient {
 
 	public boolean consumeProducts () {
 		try {
-			if (this.consumeProducts()==true) throw new IOException ("not yet implemented");
+			if (((Product) this.getProducts()).getCategory()==AMMO && ((Product) this.getProducts()).getCount()>0) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -78,8 +86,8 @@ public class SessionClient {
 
 	public Collection<Product> getProducts () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
+			if (this.products.size()!=0) throw new IOException ("not yet implemented");
+			return this.products;
 		} catch (IOException e) {
 			return null;
 		}
@@ -87,8 +95,8 @@ public class SessionClient {
 
 	public Collection<Product> getShop () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
-			return null;
+			if (this.getShop()!=null) throw new IOException ("not yet implemented");
+			return this.getShop();
 		} catch (IOException e) {
 			return null;
 		}
@@ -96,7 +104,7 @@ public class SessionClient {
 
 	public boolean refreshShop () {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.getShop()!=null) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -123,8 +131,8 @@ public class SessionClient {
 
 	public String getImage (String imageName) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
-			return "";
+			if (this.p.getImage()==imageName) throw new IOException ("not yet implemented");
+			return imageName;
 		} catch (IOException e) {
 			return null;
 		}

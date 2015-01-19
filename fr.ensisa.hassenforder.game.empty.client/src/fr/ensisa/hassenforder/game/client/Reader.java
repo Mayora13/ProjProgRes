@@ -8,6 +8,10 @@ import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.Protocol;
 
 public class Reader extends BasicAbstractReader {
+	
+	private String msg;
+	private long id;
+	private int err;
 
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -17,6 +21,7 @@ public class Reader extends BasicAbstractReader {
 		type = readInt ();
 		switch (type) {
 		case 0:
+			System.out.println("msg error");
 			break;
 		case 1: 
 			readBoolean();
@@ -54,6 +59,25 @@ public class Reader extends BasicAbstractReader {
 		} catch (IOException e) {
 			return "";
 		}
-		
 	}
+		
+		public void readConnected() {
+			readOK();
+			this.id=readLong();
+		}
+
+		public void readOK() {
+			this.err=readInt();
+		}
+
+		public void readKO() {
+			this.err=readInt();
+		}
+
+		public void readError() {
+			readKO();
+			this.msg=readString();
+		}
+		
+	
 }

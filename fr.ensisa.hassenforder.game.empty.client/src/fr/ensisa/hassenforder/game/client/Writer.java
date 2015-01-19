@@ -14,13 +14,85 @@ public class Writer extends BasicAbstractWriter {
 		super (outputStream);
 	}
 	
-	public void writeTab(ArrayList tab){
+	/*public void writeTab(ArrayList tab){
 		for (int i=0; i<tab.size();i++)
 		writeString(tab.get(i).toString());
-	}
+	}*/
 	
 	public void writeConnect(String name, String pwd){
-		writeInt(Protocol.CONNECT)
+		writeInt(Protocol.CONNECT);
+		writeString(name);
+		writeString(pwd);
+	}
+	
+	public void writeDisconnect(String name, long idDisc){
+		writeInt(Protocol.DISCONNECT);
+		writeString(name);
+		writeLong(idDisc);
+	}
+	
+	public void writeConsume(String name, long id){
+		writeInt(Protocol.CONSUME);
+		writeString(name);
+		writeLong(id);
+	}
+	
+	public void writeClear(String name, long id) {
+		writeInt(Protocol.CLEAR);
+		writeString(name);
+		writeLong(id);
+	}
+
+	public void writeSub(String name, long id) {
+		writeInt(Protocol.SUB);	
+		writeString(name);
+		writeLong(id);
+	}
+
+	public void writeAdd(String name, long id) {
+		writeInt(Protocol.ADD);
+		writeString(name);
+		writeLong(id);
+	}
+
+	public void writeShop(String name, long id) {
+		writeTab(Protocol.SHOP);
+		writeString(name);
+		writeLong(id);
+	}
+
+	public void writeStat(String name, long id) {
+		writeTab(Protocol.STAT);
+		writeString(name);
+		writeLong(id);
+	}
+
+	public void writeProd(String name, long id) {
+		writeTab(Protocol.PROD);
+		writeString(name);
+		writeLong(id);
+		
+	}
+	
+	public void writeImage(String name, long id, String image){
+		writeString(name);
+		writeLong(id);
+		writeString(image);
+	}
+	
+	public void writeTab(int discr) {
+		switch (discr) {
+			case Protocol.SHOP : 
+				
+				break;
+			case Protocol.PROD :
+				
+				break;
+			default : 
+				
+				break;
+		}
 	}
 
 }
+
