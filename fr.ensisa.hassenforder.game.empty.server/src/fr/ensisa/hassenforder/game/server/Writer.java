@@ -96,7 +96,7 @@ public class Writer extends BasicAbstractWriter {
 					Category category = p.getCategory();
 					writeCategory(category);
 					writeString(name);
-					writeLong(rTime);
+					writeInt((int)rTime);
 					writeBoolean(count > 1);
 					writeInt(count);
 					writeImage(img);
