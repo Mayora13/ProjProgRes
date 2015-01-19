@@ -8,30 +8,42 @@ import fr.ensisa.hassenforder.network.Protocol;
 
 public class Writer extends BasicAbstractWriter {
 
-	public Writer(OutputStream outputStream) {
+	public Writer(OutputStream outputStream) 
+	{
 		super (outputStream);
 	}
 
-	public void writeConnected(long id) {
-		// TODO Auto-generated method stub
+	public void writeConnected(long id)
+	{
 		writeOK();
 		writeLong(id);
 	}
 
-	public void writeOK() {
-		// TODO Auto-generated method stub
+	public void writeOK() 
+	{
 		writeInt(Protocol.OK);
 	}
 
-	public void writeKO() {
-		// TODO Auto-generated method stub
+	public void writeKO() 
+	{
 		writeInt(Protocol.KO);
 	}
 
-	public void writeError(String msg) {
-		// TODO Auto-generated method stub
+	public void writeError(String msg)
+	{
 		writeKO();
 		writeString(msg);
+	}
+	
+	public void writeTab(int discr)
+	{
+		switch(discr)
+		{
+			case Protocol.SHOP :
+				break;
+			case Protocol.PROD :
+				break;
+		}
 	}
 
 
