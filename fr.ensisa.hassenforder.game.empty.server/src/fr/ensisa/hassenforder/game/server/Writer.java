@@ -43,6 +43,7 @@ public class Writer extends BasicAbstractWriter {
 	
 	public void writeImage(String img)
 	{
+		writeString(img);
 		byte[] imgB = FileHelper.readContent(img);
 		FileHelper.writeContent(img, imgB);
 	}

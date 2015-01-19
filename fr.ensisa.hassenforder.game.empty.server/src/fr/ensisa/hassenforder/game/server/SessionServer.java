@@ -89,6 +89,7 @@ public class SessionServer {
 				Account a = this.document.getStatistics(name, idTest);
 				if(a != null)
 				{
+					writer.writeOK();
 					String img = a.getImage();
 					int cash = a.getCash();
 					writer.writeImage("./res/" + img);
