@@ -43,9 +43,18 @@ public class Writer extends BasicAbstractWriter {
 	
 	public void writeImage(String img)
 	{
-		writeString(img);
 		byte[] imgB = FileHelper.readContent(img);
-		FileHelper.writeContent(img, imgB);
+		writeBytes(imgB);
+	}
+
+	private void writeBytes(byte[] imgB) 
+	{
+		int i = imgB.length;
+		int j = 0;
+		while(j < i)
+		{
+			writeInt(imgB[j]);
+		}
 	}
 
 	public void writeCash(int cash) 
@@ -65,6 +74,7 @@ public class Writer extends BasicAbstractWriter {
 		{
 			case Protocol.SHOP : 
 				writeInt(Protocol.SHOP);
+				writeInt(prod.size());
 				while(it.hasNext())
 				{
 					p = it.next();
@@ -83,6 +93,7 @@ public class Writer extends BasicAbstractWriter {
 				break;
 			case Protocol.PROD :
 				writeInt(Protocol.PROD);
+				writeInt(prod.size());
 				while(it.hasNext())
 				{
 					p = it.next();
@@ -117,6 +128,4 @@ public class Writer extends BasicAbstractWriter {
 				break;
 		}
 	}
-
-
 }
