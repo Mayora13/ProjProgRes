@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import fr.ensisa.hassenforder.game.model.Category;
+import fr.ensisa.hassenforder.game.model.Product;
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.FileHelper;
 import fr.ensisa.hassenforder.network.Protocol;
@@ -20,11 +21,16 @@ public class Reader extends BasicAbstractReader {
 	private String img;
 	private byte[] imgs;
 	private int discrCat;
+	private Category cat;
 	private String productName;
 	private int duration;
-	private boolean isStackable;
+	private boolean stackable;
 	private int count;
-	private long rTime;
+	private int rTime;
+	private int protocol;
+	private int size;
+	private Product prod;
+	
 
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -36,60 +42,90 @@ public class Reader extends BasicAbstractReader {
 		case 0:
 			System.out.println("msg error");
 			break;
-		case 1: 
-			readBoolean();
+		case Protocol.OK: 
+			readOK();
 			break;
-		case 2:
-			readLong();
+		case Protocol.KO:
+			readKO();
 			break;
-		case 3:
-			readShort();
-			break;
-		case 4:
-			readString();
-			break;
-		case 5:
-			readImg();
-			break;
-		case 6:
-			readCategory();
+		case Protocol.CONNECT:
+			readConnected();
 			break;
 		case Protocol.STAT :
 			readStat();
 			break;
 		case Protocol.PROD:
-			readProd();
+			readProds();
 			break;
 		case Protocol.SHOP:
 			readShop();
 			break;
+		case Protocol.ADD:
+			readAdd();
+			break;
+		case Protocol.CLEAR:
+			readClear();
+			break;
+		case Protocol.BUY:
+			readBuy();
+			break;
+		case Protocol.SELL:
+			readSell();
+			break;
 	}
 
 	
 	}
-	
+	private void readSell() {
+		this.protocol=readOK();
+		this.cash=readCash();
+		
+	}
+
+	private void readBuy() {
+		this.protocol=readOK();
+		this.cash=readCash();
+		
+	}
+
+	private void readClear() {
+		this.protocol=readOK();
+	}
+
+	private void readAdd() {
+		this.protocol=readOK();
+		this.cash=readCash();
+		
+	}
+
 	private void readStat() {
-		readCash();
-		readImg();
+		this.protocol=readOK();
+		this.img=readImg();
+		this.cash=readCash();
+	
 		
 	}
 
 	private void readShop() {
+		this.protocol=readOK();
+		this.size=readInt();
 		readCategory();
 		this.productName=readString();
 		this.duration=readInt();
-		this.isStackable=readBoolean();
+		this.stackable=readBoolean();
 		this.count=readInt();
 		//this.imgs=readImg();
 		
 	}
 	
 
-	private void readProd() {
+	private void readProds() {
+		this.protocol=readOK();
+		this.size=readInt();
 		readCategory();
 		this.productName=readString();
-		this.rTime=readLong();
-		this.isStackable=readBoolean();
+		this.rTime=readInt();
+		this.stackable=readBoolean();
 		this.count=readInt();
 		//this.imgs=readImg();
 		
@@ -97,27 +133,40 @@ public class Reader extends BasicAbstractReader {
 
 	private void readCategory() {
 		this.discrCat= readInt();
+		switch (discrCat){
+			case 0:
+				System.out.println("msg error");
+				break;
+			case 1:
+				this.cat= Category.WEAPON;
+				break;
+			case 2:
+				this.cat = Category.AMMO;
+				break;
+			case 3:	
+				this.cat = Category.FOOD;
+				break;
+		}
 	}
 
-	private void readImg() {
-		this.img=readString();
-		byte [] imgB = null;
-		FileHelper.writeContent(img, imgB);
-		this.imgs=FileHelper.readContent(img);
+	private String readImg() {
+		byte[] imgB = FileHelper.readContent(img);
+		return img;
 		
 	}
 		
 		public void readConnected() {
-			readOK();
+			this.protocol=readOK();
 			this.id=readLong();
+			
 		}
 
-		public void readOK() {
-			this.err=readInt();
+		public int readOK() {
+			return readInt();
 		}
 
-		public void readKO() {
-			this.err=readInt();
+		public int readKO() {
+			return readInt();
 		}
 
 		public void readError() {
@@ -125,8 +174,8 @@ public class Reader extends BasicAbstractReader {
 			this.msg=readString();
 		}
 		
-		public void readCash(){
-			this.cash=readInt();
+		public int readCash(){
+			return readInt();
 		}
 		
 		public int getCash(){
@@ -145,5 +194,20 @@ public class Reader extends BasicAbstractReader {
 			return this.err;
 		}
 		
+		public int getProtocol(){
+			return this.protocol;
+		}
+		
+		public String getImage(){
+			return null;
+		}
+
+		public Product getProduct() {
+			return new Product(cat, productName, img, rTime, stackable, count );
+			
+		}
+		public int getSize(){
+			return this.size;
+		}
 	
 }

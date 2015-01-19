@@ -44,10 +44,11 @@ public class Writer extends BasicAbstractWriter {
 		writeLong(id);
 	}
 
-	public void writeAdd(String name, long id) {
+	public void writeAdd(String name, long id, int amount) {
 		writeInt(Protocol.ADD);
 		writeString(name);
 		writeLong(id);
+		writeInt(amount);
 	}
 
 	public void writeShop(String name, long id) {
@@ -67,6 +68,26 @@ public class Writer extends BasicAbstractWriter {
 		writeString(name);
 		writeLong(id);
 		
+	}
+	
+	public void writeRefresh(String name, long id) {
+		writeTab(Protocol.SHOP);
+		writeString(name);
+		writeLong(id);
+	}
+	
+	public void writeBuy(String name, long id, String productName){
+		writeTab(Protocol.BUY);
+		writeString(name);
+		writeLong(id);
+		writeString(productName);
+	}
+	
+	public void writeSell(String name, long id, String productName){
+		writeTab(Protocol.SELL);
+		writeString(name);
+		writeLong(id);
+		writeString(productName);
 	}
 	
 	public void writeTab(int discr) {

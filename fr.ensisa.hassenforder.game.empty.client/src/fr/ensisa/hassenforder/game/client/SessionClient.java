@@ -19,10 +19,11 @@ public class SessionClient {
     private String pwd;
     private long id;
     private Player p;
-    private Shop s;
+    private Collection <Product> shop;
     private Product pr;
 	private Category AMMO ;
 	private Collection <Product> products;
+	private int cash;
 	
 	public SessionClient (Socket connection) {
 		this.connection = connection;
@@ -32,8 +33,17 @@ public class SessionClient {
 
 	public boolean connect (String username, String userpassword) {
 		try {
-			if (this.name==username && this.pwd==userpassword) throw new IOException ("not yet implemented");
-			return true;
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeConnect(username, userpassword);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK) {
+				this.id=r.getId();
+				this.name=username;
+				return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -41,8 +51,14 @@ public class SessionClient {
 
 	public boolean disconnect () {
 		try {
-			if (this.id!=0) throw new IOException ("not yet implemented");
-			return true;
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeDisconnect(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK)
+				return true;
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -50,8 +66,16 @@ public class SessionClient {
 
 	public boolean addCash (int amount) {
 		try {
-			if (amount!=0) throw new IOException ("not yet implemented");
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeAdd(name, id, amount);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+				this.cash=r.getCash();
 			return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -59,8 +83,15 @@ public class SessionClient {
 
 	public boolean clearProducts () {
 		try {
-			if (this.products.size()!=0) throw new IOException ("not yet implemented");
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeClear(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
 			return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -68,8 +99,14 @@ public class SessionClient {
 
 	public boolean consumeProducts () {
 		try {
-			if (((Product) this.getProducts()).getCategory()==AMMO && ((Product) this.getProducts()).getCount()>0) throw new IOException ("not yet implemented");
-			return true;
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeConsume(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+			return true;}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -77,8 +114,15 @@ public class SessionClient {
 
 	public Player getStatistics () {
 		try {
-			if (p.getName()==this.name) throw new IOException ("not yet implemented");
-			return new Player(name,p.getImage(),p.getCash());
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeStat(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+			return new Player(name,r.getImage(),r.getCash());
+			}
+			else{return null;}
 		} catch (IOException e) {
 			return null;
 		}
@@ -86,8 +130,17 @@ public class SessionClient {
 
 	public Collection<Product> getProducts () {
 		try {
-			if (this.products.size()!=0) throw new IOException ("not yet implemented");
-			return this.products;
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeProd(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+				for(int i=0; i<r.getSize();i++)
+					products.add(r.getProduct());
+			return products;
+			}
+			else return null;
 		} catch (IOException e) {
 			return null;
 		}
@@ -95,8 +148,17 @@ public class SessionClient {
 
 	public Collection<Product> getShop () {
 		try {
-			if (this.getShop()!=null) throw new IOException ("not yet implemented");
-			return this.getShop();
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeShop(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+				for(int i=0; i<r.getSize();i++)
+					shop.add(r.getProduct());
+			return shop;
+			}
+			else return null;
 		} catch (IOException e) {
 			return null;
 		}
@@ -104,8 +166,17 @@ public class SessionClient {
 
 	public boolean refreshShop () {
 		try {
-			if (this.getShop()!=null) throw new IOException ("not yet implemented");
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeRefresh(name, id);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
+			for(int i=0; i<r.getSize();i++)
+				shop.add(r.getProduct());
 			return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -113,8 +184,15 @@ public class SessionClient {
 
 	public boolean buyProduct (String productName) {
 		try {
-			if (((Shop) this.getShop()).exists(productName)==true) throw new IOException ("not yet implemented");
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeBuy(name, id, productName);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
 			return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -122,8 +200,15 @@ public class SessionClient {
 
 	public boolean sellProduct (String productName) {
 		try {
-			if (this.products.contains(productName)==true) throw new IOException ("not yet implemented");
+			Writer w = new Writer(connection.getOutputStream());
+			Reader r = new Reader(connection.getInputStream());
+			w.writeSell(name, id, productName);
+			w.send();
+			r.receive();
+			if (r.getProtocol()==Protocol.OK){
 			return true;
+			}
+			else return false;
 		} catch (IOException e) {
 			return false;
 		}
@@ -131,7 +216,7 @@ public class SessionClient {
 
 	public String getImage (String imageName) {
 		try {
-			if (this.p.getImage()==imageName) throw new IOException ("not yet implemented");
+			if (true) throw new IOException ("not yet implemented");
 			return imageName;
 		} catch (IOException e) {
 			return null;
