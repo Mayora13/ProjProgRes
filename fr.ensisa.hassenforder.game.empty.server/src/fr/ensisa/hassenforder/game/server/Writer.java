@@ -66,6 +66,7 @@ public class Writer extends BasicAbstractWriter {
 		{
 			case Protocol.SHOP : 
 				writeInt(Protocol.SHOP);
+				writeOK();
 				writeInt(prod.size());
 				while(it.hasNext())
 				{
@@ -85,6 +86,7 @@ public class Writer extends BasicAbstractWriter {
 				break;
 			case Protocol.PROD :
 				writeInt(Protocol.PROD);
+				writeOK();
 				writeInt(prod.size());
 				while(it.hasNext())
 				{
