@@ -101,9 +101,16 @@ public class SessionServer {
 				break;
 			case Protocol.SUB :
 				name = reader.getName();
-				idTest = reader.getIdTest();
 				id = reader.getId();
-				//subtraction
+				idTest = reader.getIdTest();
+				int amount = reader.getAmount();
+				if(this.document.addCash(name, idTest, amount))
+				{
+					a = this.document.getStatistics(name, idTest);
+					writer.writeProtocol(Protocol.ADD);
+					writer.writeCash(a.getCash());
+					writer.writeOK();
+				}
 				break;
 			case Protocol.DISCONNECT :
 				name = reader.getName();
@@ -130,9 +137,12 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(this.document.addCash(name, idTest, 100))
+				amount = reader.getAmount();
+				if(this.document.addCash(name, idTest, amount))
 				{
+					a = this.document.getStatistics(name, idTest);
 					writer.writeProtocol(Protocol.ADD);
+					writer.writeCash(a.getCash());
 					writer.writeOK();
 				}
 				break;

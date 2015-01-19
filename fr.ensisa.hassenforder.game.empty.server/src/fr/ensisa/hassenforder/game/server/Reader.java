@@ -19,6 +19,7 @@ public class Reader extends BasicAbstractReader {
 	private long id;
 	private long idDisc;
 	private long idTest;
+	private int amount;
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -93,12 +94,14 @@ public class Reader extends BasicAbstractReader {
 	{
 		this.name = readString();
 		this.idTest = readInt();
+		this.amount = readInt();
 	}
 
 	private void readAdd() 
 	{
 		this.name = readString();
 		this.idTest = readInt();
+		this.amount = readInt();
 	}
 
 	private void readShop() 
@@ -146,5 +149,10 @@ public class Reader extends BasicAbstractReader {
 	public long getIdTest() {
 		// TODO Auto-generated method stub
 		return this.idTest;
+	}
+
+	public int getAmount() {
+		// TODO Auto-generated method stub
+		return this.amount;
 	}
 }
