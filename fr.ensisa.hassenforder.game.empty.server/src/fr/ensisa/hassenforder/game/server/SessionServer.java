@@ -56,9 +56,9 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(id == idTest)
+				Collection<Product> p = this.document.getProducts(name, idTest);
+				if(p != null)
 				{
-					Collection<Product> p = this.document.getProducts(name, idTest);
 					writer.writeProduct(Protocol.PROD, p);
 				}
 				else
@@ -70,10 +70,10 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				Collection<Product> p = this.document.getShop(name, idTest);
-				if(p != null)
+				Collection<Product> prod = this.document.getShop(name, idTest);
+				if(prod != null)
 				{
-					writer.writeProduct(Protocol.SHOP, p);
+					writer.writeProduct(Protocol.SHOP, prod);
 				}
 				else
 				{
@@ -103,10 +103,7 @@ public class SessionServer {
 				name = reader.getName();
 				idTest = reader.getIdTest();
 				id = reader.getId();
-				if(id == idTest)
-				{
-					//subtraction 
-				}
+				//subtraction
 				break;
 			case Protocol.DISCONNECT :
 				name = reader.getName();
@@ -132,24 +129,18 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(id == idTest)
+				if(this.document.addCash(name, idTest, 100))
 				{
-					if(this.document.addCash(name, idTest, 100))
-					{
-						writer.writeOK();
-					}
+					writer.writeOK();
 				}
 				break;
 			case Protocol.CLEAR :
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(id == idTest)
+				if(this.document.clearProducts(name, idTest))
 				{
-					if(this.document.clearProducts(name, idTest))
-					{
-						writer.writeOK();
-					}
+					writer.writeOK();
 				}
 				break;
 			case -1 :

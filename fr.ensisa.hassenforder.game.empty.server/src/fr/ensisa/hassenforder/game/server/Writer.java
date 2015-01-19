@@ -40,17 +40,6 @@ public class Writer extends BasicAbstractWriter {
 		writeString(msg);
 	}
 	
-	public void writeTab(int discr)
-	{
-		switch(discr)
-		{
-			case Protocol.SHOP :
-				break;
-			case Protocol.PROD :
-				break;
-		}
-	}
-
 	public void writeImage(String img)
 	{
 		byte[] imgB = FileHelper.readContent(img);
