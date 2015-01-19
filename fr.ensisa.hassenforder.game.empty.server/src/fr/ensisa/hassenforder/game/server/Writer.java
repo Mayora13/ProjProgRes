@@ -5,12 +5,15 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Iterator;
 
+import fr.ensisa.hassenforder.game.model.Category;
 import fr.ensisa.hassenforder.game.model.Product;
 import fr.ensisa.hassenforder.network.BasicAbstractWriter;
 import fr.ensisa.hassenforder.network.Protocol;
+import fr.ensisa.hassenforder.network.FileHelper;
 
 public class Writer extends BasicAbstractWriter {
 
+	
 	public Writer(OutputStream outputStream) 
 	{
 		super (outputStream);
@@ -51,8 +54,8 @@ public class Writer extends BasicAbstractWriter {
 
 	public void writeImage(String img)
 	{
-		File image = new File(img);
-		long len = image.length();
+		byte[] imgB = FileHelper.readContent(img);
+		FileHelper.writeContent(img, imgB);
 	}
 
 	public void writeCash(int cash) 
@@ -70,8 +73,17 @@ public class Writer extends BasicAbstractWriter {
 			case Protocol.SHOP : 
 				writeInt(Protocol.SHOP);
 				Iterator<Product> it = prod.iterator();
+				Product p;
 				while(it.hasNext())
 				{
+					p = it.next();
+					String img = p.getImage();
+					String name = p.getName();
+					Category category = p.getCategory();
+					long time = p.getTime();
+					long rTime = p.getRemainingTime();
+					int duration = p.getDuration();
+					int count = p.getCount();
 					
 				}
 				break;
