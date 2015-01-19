@@ -52,12 +52,28 @@ public class SessionServer {
 			case Protocol.SHOP : 
 				break;
 			case Protocol.STAT : 
+				name = reader.getName();
+				long id = reader.getId();
+				long idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					Account a = this.document.getStatistics(name, idTest);
+					String img = a.getImage();
+					int cash = a.getCash();
+					writer.writeProtocol(Protocol.STAT);
+					writer.writeImage(img);
+					writer.writeCash(cash);
+				}
+				else
+				{
+					writer.writeError("Bad ID");
+				}
 				break;
 			case Protocol.SUB :
 				break;
 			case Protocol.DISCONNECT :
 				name = reader.getName();
-				long id = reader.getId();
+				id = reader.getId();
 				long idDisc = reader.getIdDisc();
 				if(id == idDisc)
 				{

@@ -18,6 +18,7 @@ public class Reader extends BasicAbstractReader {
 	private String pwd;
 	private long id;
 	private long idDisc;
+	private long idTest;
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -103,7 +104,8 @@ public class Reader extends BasicAbstractReader {
 
 	private void readStat() 
 	{
-		
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readProd() 
@@ -156,5 +158,10 @@ public class Reader extends BasicAbstractReader {
 	public long getIdDisc() 
 	{
 		return this.idDisc;
+	}
+
+	public long getIdTest() {
+		// TODO Auto-generated method stub
+		return this.idTest;
 	}
 }
