@@ -20,6 +20,7 @@ public class Reader extends BasicAbstractReader {
 	private long idDisc;
 	private long idTest;
 	private int amount;
+	private String productName;
 	
 	public Reader(InputStream inputStream) {
 		super (inputStream);
@@ -63,7 +64,27 @@ public class Reader extends BasicAbstractReader {
 		case Protocol.DISCONNECT :
 			readDisconnect();
 			break;
+		case Protocol.BUY :
+			readBuy();
+			break;
+		case Protocol.SELL :
+			readSell();
+			break;
 		}
+	}
+
+	private void readBuy() {
+		// TODO Auto-generated method stub
+		this.name = readString();
+		this.idTest = readInt();
+		this.productName = readString();
+	}
+
+	private void readSell() {
+		// TODO Auto-generated method stub
+		this.name = readString();
+		this.idTest = readInt();
+		this.productName = readString();
 	}
 
 	private void readDisconnect() 

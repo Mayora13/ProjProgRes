@@ -157,6 +157,20 @@ public class SessionServer {
 					writer.writeOK();
 				}
 				break;
+			case Protocol.BUY :
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
+				String productName = getProductName();
+				if(this.document.buyProduct(name, idTest, productName))
+				{
+					a = this.document.getStatistics(name, idTest);
+					int cash = a.getCash();
+					writer.writeProtocol(Protocol.BUY);
+					writer.writeCash(cash);
+				}
+				break;
+			
 			case -1 :
 				writer.writeError("Bad message");
 				break;
@@ -167,6 +181,11 @@ public class SessionServer {
 		} catch (IOException e) {
 			return false;
 		}
+	}
+
+	private String getProductName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

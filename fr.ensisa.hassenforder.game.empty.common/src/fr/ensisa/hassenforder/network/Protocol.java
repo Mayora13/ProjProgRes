@@ -13,6 +13,8 @@ public interface Protocol {
 	static final public int CONSUME = 70;
 	static final public int CONNECT = 80;
 	static final public int DISCONNECT = 90;
+	static final public int BUY = 100; 
+	static final public int SELL = 110;
 	
 	public static final int KO = -2;
 	public static final int OK = 1;
