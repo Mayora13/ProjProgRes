@@ -48,21 +48,44 @@ public class SessionServer {
 			case Protocol.CONSUME :
 				break;
 			case Protocol.PROD : 
-				break;
-			case Protocol.SHOP : 
-				
-				break;
-			case Protocol.STAT : 
 				name = reader.getName();
 				long id = reader.getId();
 				long idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					Collection<Product> p = this.document.getProducts(name, idTest);
+					writer.writeProduct(Protocol.PROD, p);
+				}
+				else
+				{
+					writer.writeError("Bad ID");
+				}
+				break;
+			case Protocol.SHOP : 
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					Collection<Product> p = this.document.getShop(name, idTest);
+					writer.writeProduct(Protocol.SHOP, p);
+				}
+				else
+				{
+					writer.writeError("Bad ID");
+				}
+				break;
+			case Protocol.STAT : 
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
 				if(id == idTest)
 				{
 					Account a = this.document.getStatistics(name, idTest);
 					String img = a.getImage();
 					int cash = a.getCash();
 					writer.writeProtocol(Protocol.STAT);
-					writer.writeImage(img);
+					writer.writeImage("./res/" + img);
 					writer.writeCash(cash);
 				}
 				else

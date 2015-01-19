@@ -87,7 +87,7 @@ public class Writer extends BasicAbstractWriter {
 					writeInt(duration);
 					writeBoolean(count > 1);
 					writeInt(count);
-					writeImage(img);		
+					writeImage("./res/" + img);		
 				}
 				break;
 			case Protocol.PROD :
