@@ -28,10 +28,6 @@ public class SessionServer {
 			switch (reader.getType ()) {
 			case 0 : 
 				return false; // socket closed
-			case Protocol.ADD :
-				break;
-			case Protocol.CLEAR :
-				break;
 			case Protocol.CONNECT :
 				String pwd = reader.getPwd();
 				String name = reader.getName();
@@ -46,11 +42,21 @@ public class SessionServer {
 				}
 				break;
 			case Protocol.CONSUME :
-				break;
-			case Protocol.PROD : 
 				name = reader.getName();
 				long id = reader.getId();
 				long idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					if(this.document.consumeProducts(name, idTest))
+					{
+						writer.writeOK();
+					}
+				}
+				break;
+			case Protocol.PROD : 
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
 				if(id == idTest)
 				{
 					Collection<Product> p = this.document.getProducts(name, idTest);
@@ -113,6 +119,30 @@ public class SessionServer {
 				else
 				{
 					writer.writeError("Disconnect failed");
+				}
+				break;
+			case Protocol.ADD :
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					if(this.document.addCash(name, idTest, 100))
+					{
+						writer.writeOK();
+					}
+				}
+				break;
+			case Protocol.CLEAR :
+				name = reader.getName();
+				id = reader.getId();
+				idTest = reader.getIdTest();
+				if(id == idTest)
+				{
+					if(this.document.clearProducts(name, idTest))
+					{
+						writer.writeOK();
+					}
 				}
 				break;
 			case -1 :
