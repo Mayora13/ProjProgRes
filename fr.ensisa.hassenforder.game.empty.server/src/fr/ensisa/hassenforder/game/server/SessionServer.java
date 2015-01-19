@@ -108,8 +108,8 @@ public class SessionServer {
 				{
 					a = this.document.getStatistics(name, idTest);
 					writer.writeProtocol(Protocol.ADD);
-					writer.writeCash(a.getCash());
 					writer.writeOK();
+					writer.writeCash(a.getCash());	
 				}
 				break;
 			case Protocol.DISCONNECT :
@@ -142,8 +142,8 @@ public class SessionServer {
 				{
 					a = this.document.getStatistics(name, idTest);
 					writer.writeProtocol(Protocol.ADD);
-					writer.writeCash(a.getCash());
 					writer.writeOK();
+					writer.writeCash(a.getCash());	
 				}
 				break;
 			case Protocol.CLEAR :
