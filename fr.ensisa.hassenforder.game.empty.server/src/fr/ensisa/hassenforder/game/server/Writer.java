@@ -104,6 +104,24 @@ public class Writer extends BasicAbstractWriter {
 					writeImage(img);
 				}
 				break;
+			case Protocol.BUY :
+				writeInt(prod.size());
+				while(it.hasNext())
+				{
+					p = it.next();
+					long rTime = p.getRemainingTime();
+					String img = p.getImage();
+					String name = p.getName();
+					int count = p.getCount();
+					Category category = p.getCategory();
+					writeCategory(category);
+					writeString(name);
+					writeInt((int)rTime);
+					writeBoolean(count > 1);
+					writeInt(count);
+					writeImage(img);
+				}
+				break;
 		}
 	}
 

@@ -168,9 +168,11 @@ public class SessionServer {
 					int cash = a.getCash();
 					writer.writeProtocol(Protocol.BUY);
 					writer.writeCash(cash);
+					writer.writeProduct(Protocol.BUY, (Collection<Product>) a.getProducts());
+					
 				}
 				break;
-			
+			case Protocol.SELL :
 			case -1 :
 				writer.writeError("Bad message");
 				break;
