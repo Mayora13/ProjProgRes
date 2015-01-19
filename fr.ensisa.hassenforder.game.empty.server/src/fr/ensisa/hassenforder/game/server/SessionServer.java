@@ -48,6 +48,7 @@ public class SessionServer {
 				{
 					if(this.document.consumeProducts(name, idTest))
 					{
+						writer.writeProtocol(Protocol.CONSUME);
 						writer.writeOK();
 					}
 				}
@@ -84,13 +85,12 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				
+				writer.writeProtocol(Protocol.STAT);
 				Account a = this.document.getStatistics(name, idTest);
 				if(a != null)
 				{
 					String img = a.getImage();
 					int cash = a.getCash();
-					writer.writeProtocol(Protocol.STAT);
 					writer.writeImage("./res/" + img);
 					writer.writeCash(cash);
 				}
@@ -113,6 +113,7 @@ public class SessionServer {
 				{
 					if(document.disconnect(name, idDisc))
 					{
+						writer.writeProtocol(Protocol.DISCONNECT);
 						writer.writeOK();
 					}
 					else
@@ -131,6 +132,7 @@ public class SessionServer {
 				idTest = reader.getIdTest();
 				if(this.document.addCash(name, idTest, 100))
 				{
+					writer.writeProtocol(Protocol.ADD);
 					writer.writeOK();
 				}
 				break;
@@ -140,6 +142,7 @@ public class SessionServer {
 				idTest = reader.getIdTest();
 				if(this.document.clearProducts(name, idTest))
 				{
+					writer.writeProtocol(Protocol.CLEAR);
 					writer.writeOK();
 				}
 				break;

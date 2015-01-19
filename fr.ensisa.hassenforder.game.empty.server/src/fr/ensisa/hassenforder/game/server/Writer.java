@@ -20,6 +20,7 @@ public class Writer extends BasicAbstractWriter {
 
 	public void writeConnected(long id)
 	{
+		writeInt(Protocol.CONNECT);
 		writeOK();
 		writeLong(id);
 	}
