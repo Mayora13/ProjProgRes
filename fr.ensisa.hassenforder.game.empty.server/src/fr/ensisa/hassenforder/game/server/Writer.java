@@ -44,18 +44,10 @@ public class Writer extends BasicAbstractWriter {
 	public void writeImage(String img)
 	{
 		byte[] imgB = FileHelper.readContent(img);
-		writeBytes(imgB);
+		writeByte(imgB);
 	}
 
-	private void writeBytes(byte[] imgB) 
-	{
-		int i = imgB.length;
-		int j = 0;
-		while(j < i)
-		{
-			writeInt(imgB[j]);
-		}
-	}
+
 
 	public void writeCash(int cash) 
 	{

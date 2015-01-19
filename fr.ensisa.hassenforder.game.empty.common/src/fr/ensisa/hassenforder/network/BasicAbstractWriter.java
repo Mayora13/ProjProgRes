@@ -15,6 +15,17 @@ public class BasicAbstractWriter {
 		this.outputStream = outputStream;
 	}
 
+	protected void writeByte(byte v[]) {
+		try {
+			for(int i = 0 ; i < v.length ; i++)
+			{
+				output.writeByte(v[i]);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	protected void writeBoolean(boolean v) {
 		try {
 			if (v) output.writeInt(1);
