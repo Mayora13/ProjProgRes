@@ -1,6 +1,5 @@
 package fr.ensisa.hassenforder.game.server;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Iterator;
@@ -69,29 +68,61 @@ public class Writer extends BasicAbstractWriter {
 	}
 	
 	public void writeProduct(int discr, Collection<Product> prod) {
-		switch (discr) {
+		Iterator<Product> it = prod.iterator();
+		Product p;
+		switch (discr) 
+		{
 			case Protocol.SHOP : 
 				writeInt(Protocol.SHOP);
-				Iterator<Product> it = prod.iterator();
-				Product p;
 				while(it.hasNext())
 				{
 					p = it.next();
 					String img = p.getImage();
 					String name = p.getName();
 					Category category = p.getCategory();
-					long time = p.getTime();
-					long rTime = p.getRemainingTime();
 					int duration = p.getDuration();
 					int count = p.getCount();
-					
+					writeCategory(category);
+					writeString(name);
+					writeInt(duration);
+					writeBoolean(count > 1);
+					writeInt(count);
+					writeImage(img);		
 				}
 				break;
 			case Protocol.PROD :
-				
+				writeInt(Protocol.PROD);
+				while(it.hasNext())
+				{
+					p = it.next();
+					long rTime = p.getRemainingTime();
+					String img = p.getImage();
+					String name = p.getName();
+					int count = p.getCount();
+					Category category = p.getCategory();
+					writeCategory(category);
+					writeString(name);
+					writeLong(rTime);
+					writeBoolean(count > 1);
+					writeInt(count);
+					writeImage(img);
+				}
 				break;
-			default : 
-				
+		}
+	}
+
+	private void writeCategory(Category category) 
+	{
+		switch(category)
+		{
+			case WEAPON :
+				writeInt(1);
+				break;
+			case AMMO :
+				writeInt(2);
+				break;
+			case FOOD :
+				writeInt(3);
 				break;
 		}
 	}

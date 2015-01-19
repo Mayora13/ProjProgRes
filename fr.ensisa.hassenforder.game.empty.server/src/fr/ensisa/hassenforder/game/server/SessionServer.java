@@ -50,6 +50,7 @@ public class SessionServer {
 			case Protocol.PROD : 
 				break;
 			case Protocol.SHOP : 
+				
 				break;
 			case Protocol.STAT : 
 				name = reader.getName();
