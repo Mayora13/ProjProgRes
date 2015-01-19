@@ -113,7 +113,7 @@ public class SessionClient {
 
 	public boolean buyProduct (String productName) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (((Shop) this.getShop()).exists(productName)==true) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -122,7 +122,7 @@ public class SessionClient {
 
 	public boolean sellProduct (String productName) {
 		try {
-			if (true) throw new IOException ("not yet implemented");
+			if (this.products.contains(productName)==true) throw new IOException ("not yet implemented");
 			return true;
 		} catch (IOException e) {
 			return false;

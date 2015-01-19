@@ -3,6 +3,7 @@ package fr.ensisa.hassenforder.game.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import fr.ensisa.hassenforder.network.BasicAbstractReader;
 import fr.ensisa.hassenforder.network.Protocol;
@@ -36,9 +37,6 @@ public class Reader extends BasicAbstractReader {
 			readString();
 			break;
 		case 5:
-			readTab();
-			break;
-		case 6:
 			readImg();
 			break;
 		
@@ -46,12 +44,7 @@ public class Reader extends BasicAbstractReader {
 
 	
 	}
-
-	private ArrayList readTab() {
-		return null;
-		
-		
-	}
+	
 
 	private String readImg() {
 		try {
