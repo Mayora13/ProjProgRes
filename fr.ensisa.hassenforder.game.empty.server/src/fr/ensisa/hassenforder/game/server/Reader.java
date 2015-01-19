@@ -79,27 +79,32 @@ public class Reader extends BasicAbstractReader {
 
 	private void readConsume() 
 	{
-		
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readClear() 
 	{
-		
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readSub() 
 	{
-		
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readAdd() 
 	{
-		
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readShop() 
 	{
-		readTab(Protocol.SHOP);
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
 	private void readStat() 
@@ -110,35 +115,13 @@ public class Reader extends BasicAbstractReader {
 
 	private void readProd() 
 	{
-		readTab(Protocol.PROD);
+		this.name = readString();
+		this.idTest = readInt();
 	}
 
-	private void readImage() 
-	{
-	
-	}
 
-	private void readTab(int discr) {
-		int size;
-		switch (discr) {
-			case Protocol.SHOP : 
-				break;
-			case Protocol.PROD :
-				size = readInt();
-				for(int i = 0; i < size; i++)
-				{
-					
-				}
-				break;
-			default : 
-				size = readInt();
-				for(int i = 0; i < size; i++)
-				{
-					
-				}
-				break;
-		}
-	}
+
+
 	
 	public String getName()
 	{

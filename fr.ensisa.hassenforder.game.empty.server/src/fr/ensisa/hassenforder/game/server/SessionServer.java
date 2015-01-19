@@ -7,7 +7,6 @@ import java.util.Collection;
 import fr.ensisa.hassenforder.game.model.Account;
 import fr.ensisa.hassenforder.game.model.Product;
 import fr.ensisa.hassenforder.game.model.User;
-import fr.ensisa.hassenforder.network.FileHelper;
 import fr.ensisa.hassenforder.network.Protocol;
 
 public class SessionServer {
@@ -71,9 +70,9 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(id == idTest)
+				Collection<Product> p = this.document.getShop(name, idTest);
+				if(p != null)
 				{
-					Collection<Product> p = this.document.getShop(name, idTest);
 					writer.writeProduct(Protocol.SHOP, p);
 				}
 				else
@@ -85,9 +84,10 @@ public class SessionServer {
 				name = reader.getName();
 				id = reader.getId();
 				idTest = reader.getIdTest();
-				if(id == idTest)
+				
+				Account a = this.document.getStatistics(name, idTest);
+				if(a != null)
 				{
-					Account a = this.document.getStatistics(name, idTest);
 					String img = a.getImage();
 					int cash = a.getCash();
 					writer.writeProtocol(Protocol.STAT);
@@ -100,6 +100,13 @@ public class SessionServer {
 				}
 				break;
 			case Protocol.SUB :
+				name = reader.getName();
+				idTest = reader.getIdTest();
+				id = reader.getId();
+				if(id == idTest)
+				{
+					//subtraction 
+				}
 				break;
 			case Protocol.DISCONNECT :
 				name = reader.getName();
